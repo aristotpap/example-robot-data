@@ -176,6 +176,43 @@ class ANYmalDLoader(RobotLoader):
     srdf_filename = "anymal.srdf"
     ref_posture = "standing"
     free_flyer = True
+    joints_to_lock = (
+        "inspection_payload_mount_to_pan",
+        "inspection_payload_pan_to_tilt",
+    )
+
+    def __init__(self, verbose=False):
+        super().__init__(verbose=verbose)
+        model = self.robot.model
+        ids = [
+            model.getJointId(n)
+            for n in self.joints_to_lock
+            if model.existJointName(n)
+        ]
+        if not ids:
+            return
+        q_ref = self.robot.q0
+        reduced_model, reduced_visual = pin.buildReducedModel(
+            model, self.robot.visual_model, ids, q_ref
+        )
+        _, reduced_collision = pin.buildReducedModel(
+            model, self.robot.collision_model, ids, q_ref
+        )
+        self.robot.model = reduced_model
+        self.robot.visual_model = reduced_visual
+        self.robot.collision_model = reduced_collision
+        self.robot.data = reduced_model.createData()
+        self.robot.visual_data = pin.GeometryData(reduced_visual)
+        self.robot.collision_data = pin.GeometryData(reduced_collision)
+        self.robot.q0 = readParamsFromSrdf(
+            reduced_model,
+            self.srdf_path,
+            self.verbose,
+            self.has_rotor_parameters,
+            self.ref_posture,
+        )
+        if self.free_flyer:
+            self.addFreeFlyerJointLimits()
 
 
 class LaikagoLoader(RobotLoader):
