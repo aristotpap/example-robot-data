@@ -169,6 +169,14 @@ class ANYmalCLoader(RobotLoader):
     free_flyer = True
 
 
+class ANYmalDLoader(RobotLoader):
+    path = "anymal_d_simple_description"
+    urdf_filename = "anymal.urdf"
+    srdf_filename = "anymal.srdf"
+    ref_posture = "standing"
+    free_flyer = True
+
+
 class LaikagoLoader(RobotLoader):
     path = "laikago_description"
     urdf_subpath = "urdf"
@@ -500,6 +508,7 @@ ROBOTS = {
     "b1_z1": B1Z1Loader,
     "anymal": ANYmalLoader,
     "anymal_c": ANYmalCLoader,
+    "anymal_d": ANYmalDLoader,
     "anymal_kinova": ANYmalKinovaLoader,
     "asr_twodof": AsrTwoDofLoader,
     "baxter": BaxterLoader,
