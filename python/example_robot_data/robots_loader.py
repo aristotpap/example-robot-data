@@ -171,6 +171,7 @@ class ANYmalCLoader(RobotLoader):
 
 class ANYmalDLoader(RobotLoader):
     path = "anymal_d_simple_description"
+    urdf_subpath = "urdf"
     urdf_filename = "anymal.urdf"
     srdf_filename = "anymal.srdf"
     ref_posture = "standing"
