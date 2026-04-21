@@ -50,7 +50,7 @@
     <!-- <collision>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://b1_description/meshes/trunk.dae" scale="1 1 1"/>
+                <mesh filename="package://example-robot-data/robots/b1_description/meshes/trunk.dae" scale="1 1 1"/>
             </geometry>
         </collision> -->
     <inertial>
